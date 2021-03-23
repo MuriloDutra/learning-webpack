@@ -6,7 +6,8 @@ module.exports = {
     mode: 'development',
     entry: {
         index:'./src/index.js',
-        print: './src/print.js'
+        print: './src/print.js',
+        another: './src/another-module.js',
     },
     devtool: 'inline-source-map',
     devServer: {
@@ -21,6 +22,6 @@ module.exports = {
         filename: '[name].bundle.js',
         path: path.resolve(__dirname, 'dist'),
         clean: true, //It cleans '/dist' folder before a new build
-        publicPath: '/',
+        publicPath: '/', //The publicPath will be used within our server script as well in order to make sure files are served correctly on http://localhost:3000. The next step is setting up our custom express server
     },
 }
