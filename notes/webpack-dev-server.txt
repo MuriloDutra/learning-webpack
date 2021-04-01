@@ -1,0 +1,11 @@
+    The webpack-dev-server provides you with a simple web server and the ability to use live reloading. Let's set it up:
+        npm install --save-dev webpack-dev-server
+
+    Change your configuration file to tell the dev server where to look for files:
+        module.exports = {
+            devServer: {
+                contentBase: './dist',
+            },
+        }
+
+    This tells webpack-dev-server to serve the files from the dist directory on localhost:8080.

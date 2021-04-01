@@ -1,0 +1,28 @@
+    === STYLE ===
+    - CSS
+        npm install --save-dev style-loader css-loader
+        EXAMPLE:
+            module: {
+                rules: [
+                    {test: /\.css$/i, use: ['style-loader', 'css-loader'],},
+                ],
+            },
+
+    -SASS
+        npm install sass-loader sass webpack --save-dev
+        * sass-loader requires you to install either Dart Sass or Node Sass on your own (more documentation can be found below).
+        EXAMPLE: 
+            module.exports = {
+                module: {
+                    rules: [
+                    {
+                        test: /\.s[ac]ss$/i,
+                        use: [
+                            "style-loader", // Creates `style` nodes from JS strings
+                            "css-loader", // Translates CSS into CommonJS
+                            "sass-loader",// Compiles Sass to CSS
+                        ],
+                    },
+                    ],
+                },
+            };

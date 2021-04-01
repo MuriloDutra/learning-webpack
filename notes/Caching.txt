@@ -1,0 +1,43 @@
+    So we're using webpack to bundle our modular application which yields a deployable /dist directory.
+    Once the contents of /dist have been deployed to a server, clients (typically browsers) will hit that server to grab the site and its assets.
+    The last step can be time consuming, which is why browsers use a technique called caching.
+    This allows sites to load faster with less unnecessary network traffic. However, it can also cause headaches when you need new code to be picked up.
+
+    This guide focuses on the configuration needed to ensure files produced by webpack compilation can remain cached unless their content has changed.
+
+
+    **** Output Filenames
+
+    We can use the output.filename substitutions setting to define the names of our output files.
+    webpack provides a method of templating the filenames using bracketed strings called substitutions.
+    The [contenthash] substitution will add a unique hash based on the content of an asset. When the asset's content changes,
+    [contenthash] will change as well.
+
+    Let's get our project set up using the example from getting started with the plugins from output management,
+    so we don't have to deal with maintaining our index.html file manually:
+
+    EXAMPLE:
+         output: {
+            filename: '[name].[contenthash].js',
+        },
+
+
+    **** Extracting Boilerplate
+
+    It's also good practice to extract third-party libraries, such as lodash or react, to a separate vendor chunk as they are less
+    likely to change than our local source code. This step will allow clients to request even less from the server to stay up to date.
+    This can be done by using the cacheGroups option of the SplitChunksPlugin demonstrated in Example 2 of SplitChunksPlugin.
+    Lets add optimization.splitChunks with cacheGroups with next params and build:
+
+    optimization: {
+        runtimeChunk: 'single', //to create a single runtime bundle for all chunks
+        splitChunks: {
+            cacheGroups: {
+                vendor: {
+                    test: /[\\/]node_modules[\\/]/,
+                    name: 'vendors',
+                    chunks: 'all',
+                },
+            },
+        },
+    },
